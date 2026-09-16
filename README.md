@@ -1,11 +1,12 @@
 <div align="center">
 
-<img src="assets/icon.png" alt="Ponto Cego" width="110">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wordmark-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/wordmark-light.png">
+  <img src="assets/wordmark-light.png" alt="Ponto Cego" width="340">
+</picture>
 
-# Ponto Cego
-
-**A Brazilian news aggregator that classifies political bias
-per _article_, not per outlet — and shows its work.**
+### A Brazilian news aggregator that classifies political bias<br>per _article_, not per outlet — and shows its work.
 
 <p>
 <img alt="Next.js 15" src="https://img.shields.io/badge/Next.js-15.5-000000?style=flat-square&logo=nextdotjs&logoColor=white">
