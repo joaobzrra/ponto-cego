@@ -1,0 +1,55 @@
+{
+  "name": "ponto-cego",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Politically neutral news aggregator for the Brazilian media landscape.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "worker": "tsx --env-file=.env src/worker/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "test": "tsx --test tests/**/*.test.ts",
+    "seed:admin": "tsx --env-file=.env scripts/seed-admin.ts",
+    "seed:outlets": "tsx --env-file=.env scripts/seed-outlets.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
+    "@google-cloud/bigquery": "^8.3.1",
+    "@mozilla/readability": "^0.6.0",
+    "@node-rs/argon2": "^2.0.2",
+    "cheerio": "^1.0.0",
+    "drizzle-orm": "^0.45.2",
+    "jsdom": "^29.1.1",
+    "mercadopago": "^3.6.0",
+    "next": "^15.5.21",
+    "nodemailer": "^7.0.3",
+    "otpauth": "^9.4.0",
+    "pg": "^8.16.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "robots-parser": "^3.0.1",
+    "rss-parser": "^3.13.0",
+    "sharp": "^0.35.4",
+    "undici": "^7.29.1"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^22.15.0",
+    "@types/nodemailer": "^6.4.17",
+    "@types/pg": "^8.15.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "drizzle-kit": "^0.31.1",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "sharp": "$sharp"
+  }
+}

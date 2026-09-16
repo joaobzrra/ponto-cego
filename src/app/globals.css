@@ -1,0 +1,222 @@
+/*
+ * Ponto Cego — Monochromatic Rule (spec §2).
+ * Fixed charcoal/slate canvas by default; color exists only as data (bias
+ * bars, the masthead ruler) — never decoratively. A LIGHT counterpart
+ * ("jornal impresso" — warm paper tones) is available via
+ * <html data-theme="light">, toggled elsewhere; absent/"dark" renders this
+ * block unchanged, pixel-identical to the original dark-only build. Reality
+ * itself is never toggled — only the reading surface is.
+ */
+:root {
+  color-scheme: dark;
+
+  --bg: #131415;
+  --bg-raised: #1b1d1e;
+  --bg-inset: #0f1011;
+  --border: #35383a;
+  --border-faint: #242627;
+  --text: #e9eaea;
+  --text-dim: #a7a9a9;
+  /* lightened from #737676 for WCAG AA: 4.5:1 on --bg (placeholders, zero-count
+     meter labels and side notes render at the 12px floor) */
+  --text-faint: #7b7e7e;
+
+  /*
+   * Data-only colors — never used decoratively (spec §2). Diverging pair +
+   * neutral midpoint, validated on the dark surface (lightness band, ≥3:1
+   * contrast, CVD pole separation); the ZERO-chroma midpoint is intentional
+   * and wireframe-mandated — center MEANS neutral.
+   * Brand test 2026-07-11: flag palette. Esquerda = brand green #009440
+   * as-is; direita = screen tone of brand navy #012169 (the exact navy
+   * measures 1.18:1 here — invisible; #3565dd is the same hue lifted to
+   * pass ≥3:1. Use #012169 itself on light surfaces/print/logo).
+   */
+  --vies-esquerda: #009440; /* brand green */
+  --vies-centro: #828382;   /* neutral grey (wireframe spec) */
+  --vies-direita: #3565dd;  /* screen tone of brand navy #012169 */
+
+  /* Intensity tones (2026-07-16): band labels encode intensity as lightness —
+     forte = the side color, moderada/leve = progressively lighter tints of
+     the SAME hue (leve = lighter, literally). */
+  --vies-esquerda-2: #4db479;
+  --vies-esquerda-1: #99d4b3;
+  --vies-direita-2: #7293e7;
+  --vies-direita-1: #aec1f1;
+
+  --ok: #4d7c5f;
+  --warn: #b0883b;
+  --err: #9f2d38;
+
+  /* Type voices (loaded via next/font in layout.tsx). v3 2026-07-18
+     (Final-Wireframe): ONE family — Bricolage Grotesque everywhere,
+     differentiated by weight (200/400/800 on the variable axis). --sans is
+     kept as an alias so no rule needed rewriting; --mono survives only for
+     code blocks and the admin panel. */
+  --title: var(--font-title), "Segoe UI", sans-serif;
+  --sans: var(--font-title), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* Weight voices (v3): captions whisper, text speaks, labels shout. */
+  --w-xlight: 200;
+  --w-reg: 400;
+  --w-xbold: 800;
+
+  /* Type scale (designer spec 2026-07-18, pt→px at 4:3): hero display /
+     card titles 24 / menu 17 / section+keyword labels 13 ExtraBold /
+     body 12 / data captions 12 ExtraLight (9pt spec = exactly the site's
+     12px floor). --fs-section stays 16 for prose/document headings — the
+     13px ExtraBold tier is --fs-label, the caps SECTION-chrome voice. */
+  --fs-hero: clamp(1.375rem, 2.4vw, 1.875rem);
+  /* 18px on phones, 24px from ~835px up (r/brasil launch feedback 2026-09-02). */
+  --fs-title: clamp(1.125rem, 4.6vw, 1.5rem);
+  --fs-menu: 0.8125rem;
+  --fs-section: 1rem;
+  --fs-heading: 0.875rem;
+  --fs-label: 0.8125rem;
+  --fs-body: 0.75rem;
+  --fs-data: 0.75rem;
+
+  /* Caption/overlay grey (designer spec: captions AND menu hover overlays
+     share this exact tone). */
+  --hover-dark: #7e7e7f;
+
+  /* Page-level modal backdrop scrim (the article-gate overlay) — distinct
+     from the on-image hero scrim below, which stays dark in both themes. */
+  --scrim: rgba(10, 11, 12, 0.75);
+
+  /* Caps tracking: exactly two values, everywhere — a system, not per-spot
+     magic numbers. */
+  --track-caps: 0.05em;
+  --track-wide: 0.12em;
+
+  /* Motion voices (polish pass 2026-07-18): ONE settle curve for almost
+     everything, one springy overshoot for the click-invites (arrows).
+     Durations live at the use site; curves are the system. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/*
+ * Light theme ("jornal impresso") — token overrides only, toggled by
+ * <html data-theme="light"> (mechanism owned elsewhere). Warm off-white
+ * paper canvas, near-black ink, and darker steps of the same data hues
+ * (never new hues) so bias marks and status text still read as themselves.
+ * Palette (owner, 2026-09-03): #f9f8f6 canvas, #efe9e3 raised, #d9cfc7
+ * hairlines, #c9b59c as the inset (Sobre rubric) surface — the tan is ~2:1
+ * against the canvas, so it is never used for text. Text steps below were
+ * validated against the previous #f7f6f3 canvas; #f9f8f6 is lighter, so
+ * every ratio only improves.
+ */
+:root[data-theme="light"] {
+  /* "only light" (not "light"): Chrome/Brave Android "Auto Dark Theme"
+     repaints light pages dark on its own, which showed up on the owner's
+     phone as the text flipping while the background stayed dark. The
+     "only" keyword is the documented opt-out
+     (developer.chrome.com/blog/auto-dark-theme). */
+  color-scheme: only light;
+
+  --bg: #f9f8f6;
+  --bg-raised: #efe9e3;
+  --bg-inset: #c9b59c;
+  --border: #d9cfc7;
+  --border-faint: #e7e0d9;
+  --text: #1a1b1b;              /* 15.97:1 on --bg */
+  --text-dim: #55524c;          /* 7.20:1 on --bg */
+  --text-faint: #6f6a61;        /* 4.97:1 on --bg — still the 12px floor */
+
+  /* Data colors: darker steps of the SAME hues (never new ones). These are
+     read as both marks (bars, dots, meter slots) AND as small bold text
+     (band chips in article-card.tsx/cluster-parts.tsx use BAND_TONE as
+     `color` directly), so every step targets ≥4.5:1 on --bg, not just the
+     3:1 mark floor — forte is darkest/most saturated, moderada/leve stay
+     progressively lighter but never drop below the text floor. */
+  --vies-esquerda: #00722e;     /* forte:    5.64:1 */
+  --vies-esquerda-2: #0f7a3c;   /* moderada: 5.02:1 */
+  --vies-esquerda-1: #128040;   /* leve:     4.64:1 */
+
+  --vies-centro: #5c5c5b;       /* 6.19:1 — neutral (comment: center MEANS neutral) */
+
+  /* Direita forte reverts to the exact brand navy (#012169) per the dark-mode
+     comment above: the true navy measures ~1.18:1 on the dark canvas
+     (invisible, hence the #3565dd screen tone there) but is exactly right
+     on a light/paper surface. */
+  --vies-direita: #012169;      /* forte:    13.66:1 */
+  --vies-direita-2: #1f4fa8;    /* moderada:  7.09:1 */
+  --vies-direita-1: #3f6bc4;    /* leve:      4.73:1 */
+
+  --ok: #376248;                /* 6.47:1 */
+  --warn: #7c5a1f;               /* 5.82:1 */
+  --err: #86232d;                /* 8.48:1 on --bg; 9.16:1 under white badge text */
+
+  --hover-dark: #726d63;        /* 4.76:1 — also used as caption/label text */
+
+  /* Page-level modal backdrop only — the on-image hero scrim (public.css,
+     .pc-hero2-titlebox) stays dark in both themes and is NOT overridden. */
+  --scrim: rgba(26, 24, 19, 0.4);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  /* 16px root so the scale tokens are clean rem fractions; public surfaces
+     set their own 12px base via --fs-body, admin keeps browser-size text. */
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+pre,
+.mono {
+  font-family: var(--mono);
+}
+
+a {
+  color: var(--text);
+}
+
+/* Photography is evidence, not decoration — always greyscale (spec §2). */
+img {
+  filter: grayscale(1);
+}
+
+::selection {
+  background: var(--text-faint);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--vies-centro);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* scroll-reveal must NEVER hide content from a reduced-motion reader */
+  .pc-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

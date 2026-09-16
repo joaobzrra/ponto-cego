@@ -1,0 +1,182 @@
+/* Admin panel — functional monochrome, same canvas rules as the public site.
+   Full-viewport width (2026-07-20): unlike the public compact column, the
+   admin is a workbench — tables and charts get the whole screen. */
+.admin-shell {
+  max-width: none;
+  margin: 0;
+  padding: 1.5rem 2rem;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-nav .brand {
+  letter-spacing: 0.25em;
+  font-weight: 300;
+  margin-right: 1rem;
+}
+
+.admin-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.admin-nav a:hover {
+  color: var(--text);
+}
+
+.admin-nav .spacer {
+  flex: 1;
+}
+
+.card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.auth-card {
+  max-width: 380px;
+  margin: 12vh auto 0;
+}
+
+form.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+input,
+select,
+textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+}
+
+button {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 0.55rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+button.danger {
+  background: transparent;
+  color: var(--err);
+  border: 1px solid var(--err);
+}
+
+.error {
+  color: var(--err);
+  font-size: 0.9rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  text-align: left;
+  color: var(--text-faint);
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+  vertical-align: top;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* Wide tables (health has one row per feed) scroll instead of crushing cells. */
+.table-scroll {
+  overflow-x: auto;
+}
+
+.table-scroll table {
+  min-width: 1040px;
+}
+
+.badge.ok {
+  color: var(--ok);
+  border-color: var(--ok);
+}
+
+.badge.warn {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
+.badge.err {
+  color: var(--err);
+  border-color: var(--err);
+}
+
+.muted {
+  color: var(--text-faint);
+}
+
+.stat-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  flex: 1;
+  min-width: 140px;
+}
+
+.stat .n {
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.thumb {
+  width: 60px;
+  height: auto;
+  border-radius: 3px;
+  display: block;
+}

@@ -1,0 +1,37 @@
+# deps / build
+node_modules/
+.next/
+.next-dev/
+.venv/
+out/
+*.tsbuildinfo
+
+# env & secrets
+.env
+.env.local
+
+# runtime data (postgres volume, snapshots, thumbnails)
+data/
+
+# logs
+*.log
+
+# editor / local
+.obsidian/
+.DS_Store
+
+bin/
+
+# Personal document — not part of this project
+Proposta_Editor_Personalizacao.md
+PontoCego.rar
+
+# GCP service-account keys (CrUX reach updater) — never commit
+secrets/
+
+# Windows/OneDrive duplicate-copy artifacts ("Foo 1.md" beside "Foo.md")
+* [0-9].md
+
+# Redundant copy of the root CLAUDE.md — the tracked one at the repo root is
+# what Claude actually loads; a second copy here just drifts.
+.PLANNING/CLAUDE.md

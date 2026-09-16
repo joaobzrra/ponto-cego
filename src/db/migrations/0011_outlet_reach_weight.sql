@@ -1,0 +1,1 @@
+ALTER TABLE "outlets" ADD COLUMN "reach_weight" real;
